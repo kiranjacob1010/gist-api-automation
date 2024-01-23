@@ -3,7 +3,7 @@ Feature: Get Gist endpoint
   Background:
     * url 'https://api.github.com/'
     * def accessToken = karate.read('classpath:testData/accessToken.txt')
-  @smoke
+
   Scenario Outline: TC-01: Get Gist for authenticated user - with scenario <Scenario>
     Given path '/gists/<gistId>'
     And header Authorization = 'Bearer ' + accessToken
@@ -49,7 +49,7 @@ Feature: Get Gist endpoint
 
   Scenario: TC-08: Verify List gists for a user"
     Given path '/users/kiranjacob1010/gists'
-    And header Authorization = 'Bearer ' + accessToken
+    #And header Authorization = 'Bearer ' + accessToken
     When method get
     Then status 200
 

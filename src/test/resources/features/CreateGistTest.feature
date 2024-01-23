@@ -24,6 +24,10 @@ Feature: Create Gist
     Then status 201
     And match response.public == true
     And match response.files.file1.truncated == false
+    * def id = response.id
+    * karate.set('gistId', id)
+    * karate.call('Common.feature@deleteGist')
+
 
   Scenario: TC-02: Create a gist with a large payload exceeding 10mb
     * def payload = karate.read('classpath:testData/highPayload10Mb.txt')
@@ -36,6 +40,11 @@ Feature: Create Gist
     When method post
     Then status 201
     And match response.files.gistTest.truncated == true
+
+    * def id = response.id
+    * karate.set('gistId', id)
+    * karate.call('Common.feature@deleteGist')
+
 
   Scenario: TC-03: Create a gist with missing data
     Given path 'gists'
@@ -52,6 +61,7 @@ Feature: Create Gist
     When method post
     Then status 422
 
+
   Scenario: TC-04: Create a gist with missing content
     Given path 'gists'
     And request
@@ -66,6 +76,7 @@ Feature: Create Gist
     And header Content-type = 'application/vnd.github+json'
     When method post
     Then status 422
+
 
   Scenario: TC-05: Create a new Gist with content as special characters
     Given path '/gists'
@@ -85,6 +96,11 @@ Feature: Create Gist
     """
     When method post
     Then status 201
+
+    * def id = response.id
+    * karate.set('gistId', id)
+    * karate.call('Common.feature@deleteGist')
+
 
   Scenario: TC-06: Create Gist with multiple files
     Given path '/gists'
@@ -110,7 +126,12 @@ Feature: Create Gist
     And header Content-type = 'application/vnd.github+json'
     When method post
     Then status 201
+
+    * def id = response.id
+    * karate.set('gistId', id)
+    * karate.call('Common.feature@deleteGist')
   # And match response.public == true
   # And match response.files contains  {"Kfile1.txt": { "content": "hello one.txt" }}
   # And print 'Request:', request
   # And print 'Response:', response
+

@@ -3,13 +3,14 @@ Feature: Get Gist endpoint
   Background:
     * url 'https://api.github.com/'
     * def accessToken = karate.read('classpath:testData/accessToken.txt')
-
+  @smoke
   Scenario Outline: TC-01: Get Gist for authenticated user - with scenario <Scenario>
     Given path '/gists/<gistId>'
     And header Authorization = 'Bearer ' + accessToken
     When method get
     Then status <expectedStatus>
     And eval if (response.hasOwnProperty('public')) karate.match(response.public, <publicStatus>)
+    #And match response == read('classpath:testData/response-schema.json')
     Examples:
       | Scenario             | expectedStatus | gistId                           | publicStatus |
       | publicGist           | 200            | 2583488739d3e8f4c18a9f38bbb74dc0 | true         |
@@ -45,3 +46,25 @@ Feature: Get Gist endpoint
   #And match response.files.containsKey('Kfile2.txt')
   #And match response.files['Kfile1.txt'].content == 'hello one.txt'
   #And match response.files.Kfile2.txt.content == 'hello two.txt'
+
+  Scenario: TC-08: Verify List gists for a user"
+    Given path '/users/kiranjacob1010/gists'
+    And header Authorization = 'Bearer ' + accessToken
+    When method get
+    Then status 200
+
+
+  Scenario: TC-09: Create,Get and Delete Gist test
+    * def response = karate.call('Common.feature@createGist')
+    * def id = response.id
+
+    Given path '/gists/' + id
+    And header Authorization = 'Bearer ' + accessToken
+    When method get
+    Then status 200
+    And match response.public == false
+    And match response.files.gistTest.content == "Test Message"
+    * karate.set('gistId', id)
+    * karate.call('Common.feature@deleteGist')
+
+

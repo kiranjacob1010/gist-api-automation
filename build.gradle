@@ -16,5 +16,5 @@ dependencies {
 
 test {
     useJUnitPlatform()
-   // systemProperty "karate.options", "--tags @smoke" // Specify the tag we need to run
+    //systemProperty "karate.options", "--tags @smoke" // Specify the tag we need to run
 }

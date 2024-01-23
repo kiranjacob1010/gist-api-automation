@@ -1,0 +1,43 @@
+{
+  "type": "#[]",
+  "items": {
+    "title": "#string",
+    "description": "#string",
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "#string",
+        "format": "#string"
+      },
+      "forks_url": {
+        "type": "#string",
+        "format": "#string"
+      },
+      "commits_url": {
+        "type": "#string",
+        "format": "uri"
+      },
+      "id": {
+        "type": "#string"
+      },
+      "node_id": {
+        "type": "#string"
+      },
+      "git_pull_url": {
+        "type": "#string",
+        "format": "uri"
+      },
+      "git_push_url": {
+        "type": "#string",
+        "format": "uri"
+      },
+      "html_url": {
+        "type": "#string",
+        "format": "uri"
+      },
+      "public": {
+        "type": "#boolean"
+      }
+    }
+  }
+}

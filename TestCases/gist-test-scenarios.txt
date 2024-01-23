@@ -1,0 +1,81 @@
+Feature: Gist Functions
+
+  Scenario:TC-01: Create a new Gist with valid data
+    Given a user is authenticated
+    When they create a new Gist with a valid description and files
+    Then the Gist is successfully created
+
+  Scenario:TC-02: Attempt to create a Gist without authentication
+    Given a user is not authenticated
+    When they attempt to create a new Gist
+    Then the Gist creation is not allowed
+
+  Scenario:TC-03: Update the description of an existing Gist
+    Given a user is authenticated
+    When they update the description of an existing Gist
+    Then the Gist description is successfully updated
+
+  Scenario:TC-04: Delete an existing Gist
+    Given a user is authenticated
+    When they delete an existing Gist
+    Then the Gist is successfully deleted
+
+  Scenario:TC-05: Attempt to delete a Gist without proper authorization
+    Given a user is not the owner of the Gist
+    When they attempt to delete the Gist
+    Then the Gist deletion is not allowed
+
+  Scenario:TC-06: Create a public Gist and verify its visibility
+    Given a user is authenticated
+    When they create a public Gist
+    Then the Gist is visible to others
+
+  Scenario:TC-07: Create a private Gist and verify its privacy
+    Given a user is authenticated
+    When they create a private Gist
+    Then the Gist is not visible to others
+
+  Scenario:TC-08: Fork someone else's Gist
+    Given a user is authenticated
+    When they fork someone else's Gist
+    Then a new Gist is created under the user's account
+
+  Scenario:TC-09: Attempt to fork a Gist without proper authorization
+    Given a user is not authenticated
+    When they attempt to fork a Gist
+    Then the Gist forking is not allowed
+
+  Scenario:TC-10: Add comments to a Gist
+    Given a user is authenticated
+    When they add comments to a Gist
+    Then the comments are successfully added
+
+  Scenario:TC-11: Edit and delete comments on a Gist
+    Given a user is the author of a comment
+    When they edit and delete their own comments
+    Then the comments are successfully edited and deleted
+
+  Scenario:TC-12: Attempt to add comments without proper authorization
+    Given a user is not authenticated
+    When they attempt to add comments to a Gist
+    Then adding comments is not allowed
+
+  Scenario:TC-13: Search for Gists using keywords
+    Given there are existing Gists with specific keywords
+    When a user searches for Gists using those keywords
+    Then relevant Gists are displayed in the search results
+
+  Scenario:TC-14: Star and unstar from Gists
+    Given a user is authenticated
+    When they subscribe and unsubscribe from Gists
+    Then the subscriptions are successfully managed
+
+  Scenario:TC-15: Test versioning by making changes to an existing Gist
+    Given a user is authenticated
+    When they make changes to an existing Gist
+    Then the Gist version history is successfully maintained
+
+  Scenario:TC-16: Verify responsive design on various devices
+    Given a user accesses the Gist web interface on different devices
+    Then the interface is responsive and user-friendly
+
